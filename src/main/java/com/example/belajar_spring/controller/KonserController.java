@@ -2,6 +2,10 @@ package com.example.belajar_spring.controller;
 
 import com.example.belajar_spring.model.Konser;
 import com.example.belajar_spring.service.KonserService;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,11 +19,34 @@ public class KonserController {
     private KonserService konserService;
 
     // Menampilkan daftar konser
-    @GetMapping("")
-    public String listKonser(Model model) {
-        model.addAttribute("daftarKonser", konserService.getAllKonser());
-        return "konser/index";
+  @GetMapping("")
+public String listKonser(
+        @RequestParam(value = "search", required = false) String search,
+        @RequestParam(value = "sort", required = false) String sort,
+        Model model) {
+    List<Konser> konserList = konserService.getAllKonser();
+
+    // Searching
+    if (search != null && !search.isEmpty()) {
+        konserList = new ArrayList<>(
+            konserList.stream()
+                .filter(k -> k.getNamaKonser().toLowerCase().contains(search.toLowerCase()))
+                .toList()
+        );
     }
+
+    // Sorting
+    if ("nama".equals(sort)) {
+        konserList.sort((a, b) -> a.getNamaKonser().compareToIgnoreCase(b.getNamaKonser()));
+    } else if ("harga".equals(sort)) {
+        konserList.sort((a, b) -> Double.compare(a.getHarga(), b.getHarga()));
+    }
+
+    model.addAttribute("daftarKonser", konserList);
+    model.addAttribute("sort", sort);
+    model.addAttribute("search", search);
+    return "konser/index";
+}
 
     // Menampilkan form tambah konser
     @GetMapping("/add")

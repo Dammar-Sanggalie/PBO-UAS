@@ -18,6 +18,7 @@ public class KonserService {
         // Data dummy awal
         konserList.add(new Konser(1L, "Konser Coldplay", "Jakarta", LocalDate.of(2025, 8, 1), 5000, 750000.0, "/poster/Konser Coldplay.jpg"));
         konserList.add(new Konser(2L, "Konser NCT Dream", "Surabaya", LocalDate.of(2025, 9, 15), 3000, 550000.0, "/poster/Konser NCT Dream.jpg"));
+         konserList.add(new Konser(2L, "Dewok 24", "Maospati", LocalDate.of(2005, 9, 15), 10, 20000, "/poster/Dewok.jpg"));
     }
 
     // Mengambil semua konser
@@ -33,23 +34,20 @@ public class KonserService {
                 .orElse(null);
     }
 
-    // Menambahkan konser baru
-    public void addKonser(Konser konser) {
-        konserList.add(konser);
-    }
+ public void addKonser(Konser konser) {
+    konserList.add(konser);
+}
 
-    // Memperbarui data konser
-    public void updateKonser(Konser konser) {
-        for (int i = 0; i < konserList.size(); i++) {
-            if (konserList.get(i).getId().equals(konser.getId())) {
-                konserList.set(i, konser);
-                break;
-            }
+public void updateKonser(Konser konser) {
+    for (int i = 0; i < konserList.size(); i++) {
+        if (konserList.get(i).getId().equals(konser.getId())) {
+            konserList.set(i, konser);
+            return;
         }
     }
+}
 
-    // Menghapus konser berdasarkan ID
-    public void deleteKonser(Long id) {
-        konserList.removeIf(k -> k.getId().equals(id));
-    }
+public void deleteKonser(Long id) {
+    konserList.removeIf(k -> k.getId().equals(id));
+}
 }

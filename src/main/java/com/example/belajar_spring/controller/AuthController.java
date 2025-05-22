@@ -26,7 +26,7 @@ public class AuthController {
         if (userService.login(username, password)) {
             HttpSession session = request.getSession();
             session.setAttribute("loggedInUser", username);
-            return "redirect:/dashboard"; // Ganti dengan URL yang sesuai
+            return "redirect:/home"; // Ganti dengan URL yang sesuai
         }
         model.addAttribute("error", "Username atau password salah!");
         return "auth/login";

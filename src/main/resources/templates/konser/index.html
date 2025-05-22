@@ -13,36 +13,54 @@
     </div>
 
     <div class="card">
-        <div class="card-body">
-            <div class="table-responsive">
-                <table class="table table-striped table-hover">
-                    <thead class="table-dark">
-                    <tr>
-                        <th>Nama Konser</th>
-                        <th>Lokasi</th>
-                        <th>Tanggal</th>
-                        <th>Kuota</th>
-                        <th>Harga</th>
-                        <th>Aksi</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr th:each="konser : ${daftarKonser}">
-                        <td th:text="${konser.namaKonser}">Nama</td>
-                        <td th:text="${konser.lokasi}">Lokasi</td>
-                        <td th:text="${konser.tanggal != null ? konser.tanggal.dayOfMonth + '-' + konser.tanggal.monthValue + '-' + konser.tanggal.year : ''}">Tanggal</td>
-                        <td th:text="${konser.kuota}">Kuota</td>
-                        <td th:text="'Rp ' + ${#numbers.formatDecimal(konser.harga, 0, 'POINT', 0, 'POINT')}">Harga</td>
-                        <td>
-                            <a th:href="@{'/konser/edit/' + ${konser.id}}" class="btn btn-sm btn-warning">Edit</a>
-                            <a th:href="@{'/konser/delete/' + ${konser.id}}" class="btn btn-sm btn-danger"
-                               onclick="return confirm('Apakah Anda yakin ingin menghapus konser ini?')">Hapus</a>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
+       <div class="card-body">
+    <!-- Form pencarian dan sorting -->
+    <form method="get" class="row g-2 mb-3">
+        <div class="col-auto">
+            <input type="text" name="search" class="form-control" placeholder="Cari nama konser..." th:value="${search}">
         </div>
+         <div class="col-auto">
+            <button type="submit" class="btn btn-primary">Cari</button>
+        </div>
+        <div class="col-auto">
+            <select name="sort" class="form-select" onchange="this.form.submit()">
+                <option value="">Urutkan</option>
+                <option value="nama" th:selected="${sort == 'nama'}">Nama (A-Z)</option>
+                <option value="harga" th:selected="${sort == 'harga'}">Harga Termurah</option>
+            </select>
+        </div>
+       
+    </form>
+
+    <div class="table-responsive">
+        <table class="table table-striped table-hover">
+            <thead class="table-dark">
+                <tr>
+                    <th>Nama Konser</th>
+                    <th>Lokasi</th>
+                    <th>Tanggal</th>
+                    <th>Kuota</th>
+                    <th>Harga</th>
+                    <th>Aksi</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="konser : ${daftarKonser}">
+                    <td th:text="${konser.namaKonser}">Nama</td>
+                    <td th:text="${konser.lokasi}">Lokasi</td>
+                    <td th:text="${konser.tanggal != null ? konser.tanggal.dayOfMonth + '-' + konser.tanggal.monthValue + '-' + konser.tanggal.year : ''}">Tanggal</td>
+                    <td th:text="${konser.kuota}">Kuota</td>
+                    <td th:text="'Rp ' + ${#numbers.formatDecimal(konser.harga, 0, 'POINT', 0, 'POINT')}">Harga</td>
+                    <td>
+                        <a th:href="@{'/konser/edit/' + ${konser.id}}" class="btn btn-sm btn-warning">Edit</a>
+                        <a th:href="@{'/konser/delete/' + ${konser.id}}" class="btn btn-sm btn-danger"
+                           onclick="return confirm('Apakah Anda yakin ingin menghapus konser ini?')">Hapus</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
     </div>
 </div>
 </body>

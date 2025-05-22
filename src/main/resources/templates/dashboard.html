@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.thymeleaf.org"
+    layout:decorate="~{fragments/layout}">
+
+<body>
+    <div layout:fragment="main-content">
+        <div class="row mb-4">
+            <div class="col-12">
+                <h2>Dashboard</h2>
+                <p>Selamat datang di Tiket Konser ID</p>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Total Konser -->
+            <div class="col-md-6 col-lg-3 mb-4">
+                <div class="card bg-primary text-white">
+                    <div class="card-body">
+                        <h5 class="card-title"><span class=h2>Total Konser</h5>
+                        <h2 class="display-4" th:text="${totalKonser}">0</h2>
+                        <a href="/konser" class="btn btn-light mt-3">Lihat Detail</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Total Tiket Terjual -->
+            <div class="col-md-6 col-lg-3 mb-4">
+                <div class="card bg-success text-white">
+                    <div class="card-body">
+                        <h5 class="card-title"><span class=h2>Tiket Terjual</h5>
+                        <h2 class="display-4" th:text="${totalTiket}">0</h2>
+                        <a href="/tiket" class="btn btn-light mt-3">Lihat Tiket</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Total Pendapatan -->
+            <div class="col-md-6 col-lg-3 mb-4">
+                <div class="card bg-warning text-white">
+                    <div class="card-body">
+                        <h5 class="card-title"><span class=h2>Pendapatan</h5>
+                        <h2 class="display-4"><span class="h2" th:text="'Rp ' + ${#numbers.formatDecimal(pendapatan, 0, 'POINT', 0, 'POINT')}">Rp 0</span></h2>
+                        <a href="/transaksi" class="btn btn-light mt-3">Lihat Transaksi</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick access cards -->
+        <div class="row mt-4">
+            <!-- Kelola Konser -->
+            <div class="col-md-6 mb-4">
+                <div class="card">
+                    <div class="card-header bg-primary text-white">
+                        <h5>Kelola Konser</h5>
+                    </div>
+                    <div class="card-body">
+                        <p>Tambah, edit, atau hapus data konser</p>
+                        <a href="/konser" class="btn btn-primary">Daftar Konser</a>
+                        <a href="/konser/add" class="btn btn-success">Tambah Konser</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Kelola Tiket -->
+            <div class="col-md-6 mb-4">
+                <div class="card">
+                    <div class="card-header bg-success text-white">
+                        <h5>Kelola Tiket</h5>
+                    </div>
+                    <div class="card-body">
+                        <p>Atur jenis tiket, harga, dan kuota tiket konser</p>
+                        <a href="/tiket" class="btn btn-success">Daftar Tiket</a>
+                        <a href="/tiket/add" class="btn btn-primary">Tambah Tiket</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

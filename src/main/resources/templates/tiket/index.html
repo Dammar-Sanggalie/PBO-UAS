@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/layout}">
+      <head>
+    <title>Daftar Tiket</title>
+</head>
+<body>
+<div layout:fragment="main-content">
+    <h2>Daftar Tiket</h2>
+    <a class="btn btn-primary mb-3" href="/tiket/add">Tambah Tiket</a>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nama Pemesan</th>
+                <th>Konser</th>
+                <th>Jumlah</th>
+                <th>Total Harga</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="tiket : ${daftarTiket}">
+                <td th:text="${tiket.id}"></td>
+                <td th:text="${tiket.namaPemesan}"></td>
+                <td th:text="${tiket.namaKonser}"></td>
+                <td th:text="${tiket.jumlah}"></td>
+                <td th:text="${tiket.totalHarga}"></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

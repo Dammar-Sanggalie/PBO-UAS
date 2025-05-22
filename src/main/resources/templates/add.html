@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org"
+      layout:decorate="~{fragments/layout}">
+
+<body>
+<div layout:fragment="main-content">
+    <h2 th:text="${isEdit} ? 'Edit Konser' : 'Tambah Konser'"></h2>
+
+    <form th:action="${isEdit} ? @{/konser/edit/{id}(id=${konser.id})} : @{/konser/add}"
+          th:object="${konser}" method="post">
+        <div class="mb-3">
+            <label for="namaKonser" class="form-label">Nama Konser</label>
+            <input type="text" th:field="*{namaKonser}" class="form-control" id="namaKonser" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="lokasi" class="form-label">Lokasi</label>
+            <input type="text" th:field="*{lokasi}" class="form-control" id="lokasi" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="tanggal" class="form-label">Tanggal</label>
+            <input type="date" th:field="*{tanggal}" class="form-control" id="tanggal" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="kuota" class="form-label">Kuota</label>
+            <input type="number" th:field="*{kuota}" class="form-control" id="kuota" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="harga" class="form-label">Harga Tiket</label>
+            <input type="number" th:field="*{harga}" class="form-control" id="harga" step="0.01" required>
+        </div>
+
+        <button type="submit" class="btn btn-success" th:text="${isEdit} ? 'Update' : 'Tambah'"></button>
+        <a href="/konser" class="btn btn-secondary">Kembali</a>
+    </form>
+</div>
+</body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/layout}">
+<body>
+<div layout:fragment="main-content">
+    <h2>Daftar Transaksi</h2>
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th>Nama Pemesan</th>
+            <th>Nama Konser</th>
+            <th>Jumlah</th>
+            <th>Total Harga</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="trx : ${daftarTransaksi}">
+            <td th:text="${trx.namaPemesan}">Nama</td>
+            <td th:text="${trx.namaKonser}">Konser</td>
+            <td th:text="${trx.jumlah}">0</td>
+            <td th:text="'Rp ' + ${#numbers.formatDecimal(trx.totalHarga, 0, 'POINT', 0, 'POINT')}"></td>
+        </tr>
+        </tbody>
+    </table>
+    <h4>Total Pendapatan: <span th:text="'Rp ' + ${#numbers.formatDecimal(totalPendapatan, 0, 'POINT', 0, 'POINT')}">0</span></h4>
+</div>
+</body>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/layout}">
+
+<body>
+<div layout:fragment="main-content">
+    <div class="card">
+        <div class="card-header bg-primary text-white">
+            <h4 th:text="${isEdit ? 'Edit Konser' : 'Tambah Konser'}">Tambah Konser</h4>
+        </div>
+        <div class="card-body">
+            <form th:action="${isEdit ? '/konser/edit/' + konser.id : '/konser/add'}"
+                  th:object="${konser}" method="post" class="needs-validation" novalidate>
+
+                <input type="hidden" th:field="*{id}"/>
+
+                <div class="mb-3">
+                    <label for="namaKonser" class="form-label">Nama Konser</label>
+                    <input id="namaKonser" th:field="*{namaKonser}" type="text" class="form-control" required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="lokasi" class="form-label">Lokasi</label>
+                    <input id="lokasi" th:field="*{lokasi}" type="text" class="form-control" required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="tanggal" class="form-label">Tanggal</label>
+                    <input id="tanggal" th:field="*{tanggal}" type="date" class="form-control" required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="kuota" class="form-label">Kuota</label>
+                    <input id="kuota" th:field="*{kuota}" type="number" class="form-control" required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="harga" class="form-label">Harga</label>
+                    <input id="harga" th:field="*{harga}" type="number" class="form-control" required oninput="formatRupiah(this)">
+                    <small id="harga-format" class="text-muted"></small>
+                <script>
+                    function formatRupiah(input) {
+                    let value = input.value.replace(/\D/g, "");
+                    let formatted = value.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+                    document.getElementById('harga-format').innerText = value ? 'Rp ' + formatted : '';
+                    }
+                </script>
+                </div>
+
+                <button type="submit" class="btn btn-success">Simpan</button>
+                <a href="/konser" class="btn btn-secondary">Kembali</a>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

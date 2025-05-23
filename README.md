@@ -12,4 +12,4 @@ Repositori ini merupakan hasil pengerjaan **Ujian Akhir Semester (UAS)** mata ku
 | [<img src="https://avatars.githubusercontent.com/u/207813963?s=96&v=4" width="50"/>](https://github.com/Shofie070) |**Shofie Ardhya Shafina** | 24111814070 |
 | [<img src="https://avatars.githubusercontent.com/u/207968448?v=4" width="50"/>](https://github.com/Nanaelzy) |**Helena Kusuma Wardhani** | 24111814020 |
 | [<img src= "https://avatars.githubusercontent.com/u/208147443?s=96&v=4" width="50"/>](https://github.com/mnabizar) |**Muhammad Noor Abizar** | 24111814105 |
-| [<img src="https://avatars.githubusercontent.com/u/203047515?s=96&v=4" width="50"/>](https://github.com/Marzzzz-bot) |**Dewa Nazwa Putra** | 24111814115 |
+| [<img src="https://avatars.githubusercontent.com/u/203047515?s=96&v=4" width="50"/>](https://github.com/Marzzzz-bot) |**Dewa Nazwa Marna Putra** | 24111814115 |

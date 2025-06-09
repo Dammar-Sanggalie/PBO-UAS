@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{fragments/layout-user}"
+<head>
+    <title>Tiket Saya</title>
+    <style>
+        .ticket-card {
+            transition: transform 0.3s;
+            border-radius: 15px;
+            overflow: hidden;
+            border: none;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .ticket-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .status-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+        }
+
+        .status-pending {
+            background-color: #ffc107;
+            color: #000;
+        }
+
+        .status-success {
+            background-color: #28a745;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+<div layout:fragment="main-content">
+    <div class="container">
+        <h2 class="mb-4">Tiket Saya</h2>
+        
+        <!-- Jika tidak ada tiket -->
+        <div th:if="${#lists.isEmpty(daftarPemesanan)}" class="alert alert-info">
+            Anda belum memiliki tiket. Silakan pesan tiket konser terlebih dahulu.
+        </div>
+        
+        <!-- Daftar tiket -->
+        <div class="row">
+            <div class="col-md-4 mb-4" th:each="pemesanan : ${daftarPemesanan}">
+                <div class="card ticket-card">
+                    <div class="card-body">
+                        <span th:class="'status-badge ' + (${pemesanan.status == 'PENDING'} ? 'status-pending' : 'status-success')"
+                              th:text="${pemesanan.status}">Status</span>
+                        
+                        <h5 class="card-title mb-3" th:text="${pemesanan.namaKonser}">Nama Konser</h5>
+                        
+                        <div class="mb-2">
+                            <small class="text-muted">Tanggal Pemesanan:</small>
+                            <p th:text="${#temporals.format(pemesanan.tanggalPemesanan, 'dd MMMM yyyy HH:mm')}">
+                                Tanggal</p>
+                        </div>
+                        
+                        <div class="mb-2">
+                            <small class="text-muted">Jumlah Tiket:</small>
+                            <p th:text="${pemesanan.jumlahTiket + ' tiket'}">Jumlah</p>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <small class="text-muted">Total Harga:</small>
+                            <p class="text-primary fw-bold" 
+                               th:text="${'Rp ' + #numbers.formatDecimal(pemesanan.totalHarga, 0, 'COMMA', 0, 'POINT')}">
+                                Harga</p>
+                        </div>
+                        
+                        <!-- Tombol aksi jika diperlukan -->
+                        <div class="d-grid gap-2" th:if="${pemesanan.status == 'PENDING'}">
+                            <a href="#" class="btn btn-primary">
+                                <i class="fas fa-credit-card"></i> Bayar Sekarang
+                            </a>
+                            <button class="btn btn-outline-danger">
+                                <i class="fas fa-times"></i> Batalkan
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

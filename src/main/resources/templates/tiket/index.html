@@ -1,34 +1,192 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{fragments/layout}">
-      <head>
-    <title>Daftar Tiket</title>
+      layout:decorate="~{fragments/layout-admin}">
+<head>
+    <title>Manajemen Tiket</title>
+    <style>
+        .page-header {
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)),
+                        url('https://images.unsplash.com/photo-1516450360452-9312f5e86fc7') center/cover;
+            color: white;
+            padding: 50px 0;
+            margin-bottom: 30px;
+            border-radius: 15px;
+        }
+
+        .stats-card {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+            border: none;
+        }
+
+        .stats-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .btn-gradient {
+            background: linear-gradient(45deg, #FF6B6B, #4ECDC4);
+            border: none;
+            color: white;
+            border-radius: 25px;
+            padding: 8px 25px;
+            transition: all 0.3s;
+        }
+
+        .btn-gradient:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            color: white;
+        }
+
+        .table-container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            overflow: hidden;
+            margin-top: 30px;
+        }
+
+        .table {
+            margin-bottom: 0;
+        }
+
+        .table thead th {
+            background: linear-gradient(45deg, #2C3E50, #3498DB);
+            color: white;
+            border: none;
+            padding: 15px;
+        }
+
+        .table tbody td {
+            padding: 15px;
+            vertical-align: middle;
+        }
+
+        .badge-price {
+            background: linear-gradient(45deg, #2ecc71, #27ae60);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-weight: normal;
+        }
+
+        .badge-qty {
+            background: linear-gradient(45deg, #3498db, #2980b9);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-weight: normal;
+        }
+    </style>
 </head>
 <body>
 <div layout:fragment="main-content">
-    <h2>Daftar Tiket</h2>
-    <a class="btn btn-primary mb-3" href="/tiket/add">Tambah Tiket</a>
-    <table class="table table-bordered">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Nama Pemesan</th>
-                <th>Konser</th>
-                <th>Jumlah</th>
-                <th>Total Harga</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr th:each="tiket : ${daftarTiket}">
-                <td th:text="${tiket.id}"></td>
-                <td th:text="${tiket.namaPemesan}"></td>
-                <td th:text="${tiket.namaKonser}"></td>
-                <td th:text="${tiket.jumlah}"></td>
-                <td th:text="${tiket.totalHarga}"></td>
-            </tr>
-        </tbody>
-    </table>
+    <!-- Header Section -->
+    <div class="page-header animate__animated animate__fadeIn">
+        <div class="container">
+            <div class="d-flex justify-content-between align-items-center">
+                <div>
+                    <h1 class="display-4">Manajemen Tiket</h1>
+                    <p class="lead">Kelola semua tiket konser dalam satu tempat</p>
+                </div>
+                <a href="/tiket/add" class="btn btn-gradient">
+                    <i class="bi bi-plus-circle me-2"></i>Tambah Tiket
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Statistics Cards -->
+    <div class="row mb-4">
+        <div class="col-md-4">
+            <div class="stats-card card">
+                <div class="card-body text-center p-4">
+                    <i class="bi bi-ticket-perforated text-primary display-4"></i>
+                    <h5 class="mt-3">Total Tiket Terjual</h5>
+                    <h2 class="mb-0" th:text="${totalTiket}">0</h2>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="stats-card card">
+                <div class="card-body text-center p-4">
+                    <i class="bi bi-currency-dollar text-success display-4"></i>
+                    <h5 class="mt-3">Total Pendapatan</h5>
+                    <h2 class="mb-0" th:text="'Rp ' + ${#numbers.formatDecimal(totalPendapatan, 0, 'POINT', 0, 'POINT')}">0</h2>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="stats-card card">
+                <div class="card-body text-center p-4">
+                    <i class="bi bi-person text-warning display-4"></i>
+                    <h5 class="mt-3">Total Pembeli</h5>
+                    <h2 class="mb-0" th:text="${totalPembeli}">0</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Table -->
+    <div class="table-container">
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>ID Tiket</th>
+                        <th>Nama Pemesan</th>
+                        <th>Konser</th>
+                        <th>Jumlah</th>
+                        <th>Total Harga</th>
+                        <th>Status</th>
+                        <th>Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="tiket : ${daftarTiket}">
+                        <td>
+                            <span class="text-muted">#</span>
+                            <span th:text="${tiket.id}"></span>
+                        </td>
+                        <td>
+                            <i class="bi bi-person-circle me-2"></i>
+                            <span th:text="${tiket.namaPemesan}"></span>
+                        </td>
+                        <td>
+                            <i class="bi bi-music-note me-2"></i>
+                            <span th:text="${tiket.namaKonser}"></span>
+                        </td>
+                        <td>
+                            <span class="badge badge-qty">
+                                <i class="bi bi-ticket me-1"></i>
+                                <span th:text="${tiket.jumlah + ' tiket'}"></span>
+                            </span>
+                        </td>
+                        <td>
+                            <span class="badge badge-price">
+                                <i class="bi bi-tag me-1"></i>
+                                <span th:text="'Rp ' + ${#numbers.formatDecimal(tiket.totalHarga, 0, 'POINT', 0, 'POINT')}"></span>
+                            </span>
+                        </td>
+                        <td>
+                            <span class="badge bg-success">Active</span>
+                        </td>
+                        <td>
+                            <button class="btn btn-sm btn-info me-2">
+                                <i class="bi bi-eye"></i>
+                            </button>
+                            <button class="btn btn-sm btn-danger">
+                                <i class="bi bi-trash"></i>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
 </body>
 </html>

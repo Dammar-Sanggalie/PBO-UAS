@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Riwayat Pemesanan</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-4">
+        <h2>Riwayat Pemesanan</h2>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>ID Pemesanan</th>
+                    <th>Nama Konser</th>
+                    <th>Jumlah Tiket</th>
+                    <th>Total Harga</th>
+                    <th>Tanggal Pemesanan</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="pemesanan : ${pemesananList}">
+                    <td th:text="${pemesanan.id}">ID</td>
+                    <td th:text="${pemesanan.konserId}">Nama Konser</td>
+                    <td th:text="${pemesanan.jumlahTiket}">Jumlah</td>
+                    <td th:text="${'Rp ' + #numbers.formatDecimal(pemesanan.totalHarga, 0, 'COMMA', 0, 'POINT')}">Total</td>
+                    <td th:text="${#temporals.format(pemesanan.tanggalPemesanan, 'dd-MM-yyyy HH:mm')}">Tanggal</td>
+                    <td th:text="${pemesanan.status}">Status</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

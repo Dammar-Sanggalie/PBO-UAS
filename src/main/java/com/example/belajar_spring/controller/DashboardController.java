@@ -22,6 +22,6 @@ public class DashboardController {
         model.addAttribute("totalTiket", tiketService.getTotalTiketTerjual());
         model.addAttribute("pendapatan", tiketService.getAllTiket().stream()
                 .mapToDouble(t -> t.getTotalHarga()).sum());
-        return "dashboard";
+        return "admin/dashboard"; // Make sure this points to admin/dashboard.html
     }
 }

@@ -50,4 +50,15 @@ public void updateKonser(Konser konser) {
 public void deleteKonser(Long id) {
     konserList.removeIf(k -> k.getId().equals(id));
 }
+
+public boolean updateKuota(Long konserId, int jumlahDipesan) {
+        Konser konser = getKonserById(konserId);
+        if (konser == null || konser.getKuota() < jumlahDipesan) {
+            return false;
+        }
+        
+        konser.setKuota(konser.getKuota() - jumlahDipesan);
+        updateKonser(konser);
+        return true;
+    }
 }

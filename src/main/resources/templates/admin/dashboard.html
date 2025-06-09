@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" 
+      xmlns:th="http://www.thymeleaf.org"
+      layout:decorate="~{fragments/layout-admin}">
+<head>
+    <title>Dashboard - Admin</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet">
+    <style>
+        .hero-section {
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)),
+                        url('https://images.unsplash.com/photo-1516450360452-9312f5e86fc7') center/cover;
+            color: white;
+            padding: 50px 0;
+            margin-bottom: 30px;
+            border-radius: 15px;
+        }
+
+        .stat-card {
+            transition: transform 0.3s, box-shadow 0.3s;
+            border-radius: 15px;
+            overflow: hidden;
+            border: none;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+        }
+
+        .quick-access-card {
+            transition: transform 0.3s;
+            border-radius: 15px;
+            border: none;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .quick-access-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .btn-gradient {
+            background: linear-gradient(45deg, #FF6B6B, #4ECDC4);
+            border: none;
+            color: white;
+            border-radius: 25px;
+            padding: 8px 25px;
+            transition: transform 0.3s;
+        }
+
+        .btn-gradient:hover {
+            transform: scale(1.05);
+            color: white;
+        }
+
+        .card-header {
+            border-bottom: none;
+            padding: 1.5rem 1.5rem 0;
+        }
+
+        .animate-card {
+            opacity: 0;
+            animation: fadeInUp 1s forwards;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div layout:fragment="main-content">
+        <!-- Hero Section -->
+        <div class="hero-section animate__animated animate__fadeIn">
+            <div class="container">
+                <h1 class="display-4">Welcome to Admin Dashboard</h1>
+                <p class="lead">Manage your concerts and monitor ticket sales in one place.</p>
+            </div>
+        </div>
+
+        <!-- Statistics Cards -->
+        <div class="row">
+            <!-- Total Konser -->
+            <div class="col-md-6 col-lg-4 mb-4 animate-card">
+                <div class="stat-card">
+                    <div class="card-body text-center p-4">
+                        <i class="fas fa-music fa-3x mb-3" style="color: #FF6B6B;"></i>
+                        <h3 class="card-title">Total Concerts</h3>
+                        <h2 class="display-4 mb-3" th:text="${totalKonser}">0</h2>
+                        <a href="/konser" class="btn btn-gradient">
+                            <i class="fas fa-arrow-right me-2"></i>View Details
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Total Tiket -->
+            <div class="col-md-6 col-lg-4 mb-4 animate-card">
+                <div class="stat-card">
+                    <div class="card-body text-center p-4">
+                        <i class="fas fa-ticket-alt fa-3x mb-3" style="color: #4ECDC4;"></i>
+                        <h3 class="card-title">Tickets Sold</h3>
+                        <h2 class="display-4 mb-3" th:text="${totalTiket}">0</h2>
+                        <a href="/tiket" class="btn btn-gradient">
+                            <i class="fas fa-arrow-right me-2"></i>View Tickets
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Revenue -->
+            <div class="col-md-6 col-lg-4 mb-4 animate-card">
+                <div class="stat-card">
+                    <div class="card-body text-center p-4">
+                        <i class="fas fa-chart-line fa-3x mb-3" style="color: #FFB73B;"></i>
+                        <h3 class="card-title">Total Revenue</h3>
+                        <h2 class="display-4 mb-3">
+                            <span th:text="'Rp ' + ${#numbers.formatDecimal(pendapatan, 0, 'POINT', 0, 'POINT')}">0</span>
+                        </h2>
+                        <a href="/transaksi" class="btn btn-gradient">
+                            <i class="fas fa-arrow-right me-2"></i>View Transactions
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Access Section -->
+        <div class="row mt-4">
+            <div class="col-md-6 mb-4">
+                <div class="quick-access-card card h-100">
+                    <div class="card-body p-4">
+                        <h4 class="card-title mb-4">
+                            <i class="fas fa-music me-2" style="color: #FF6B6B;"></i>
+                            Concert Management
+                        </h4>
+                        <p class="text-muted mb-4">Add, edit, or remove concert information and manage ticket allocations.</p>
+                        <div class="d-flex gap-2">
+                            <a href="/konser" class="btn btn-gradient me-2">View Concerts</a>
+                            <a href="/konser/add" class="btn btn-gradient">Add New</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 mb-4">
+                <div class="quick-access-card card h-100">
+                    <div class="card-body p-4">
+                        <h4 class="card-title mb-4">
+                            <i class="fas fa-ticket-alt me-2" style="color: #4ECDC4;"></i>
+                            Ticket Management
+                        </h4>
+                        <p class="text-muted mb-4">Monitor ticket sales, manage bookings, and handle customer requests.</p>
+                        <div class="d-flex gap-2">
+                            <a href="/tiket" class="btn btn-gradient me-2">View Tickets</a>
+                            <a href="/tiket/add" class="btn btn-gradient">Add Ticket</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Animation Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const cards = document.querySelectorAll('.animate-card');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.animation = 'fadeInUp 1s forwards';
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+            cards.forEach(card => observer.observe(card));
+        });
+    </script>
+</body>
+</html>

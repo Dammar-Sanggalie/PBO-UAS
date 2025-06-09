@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/layout-user}">
+<head>
+    <title>Home - User Area</title>
+    <!-- Add required CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .hero-section {
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), 
+                        url('https://images.unsplash.com/photo-1540039155733-5bb30b53aa14?ixlib=rb-1.2.1') center/cover;
+            color: white;
+            padding: 100px 0;
+            margin-bottom: 50px;
+            border-radius: 15px;
+        }
+
+        .card {
+            transition: transform 0.3s, box-shadow 0.3s;
+            border-radius: 15px;
+            overflow: hidden;
+            border: none;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+        }
+
+        .card-img-top {
+            height: 300px;
+            object-fit: cover;
+            transition: transform 0.3s;
+        }
+
+        .card:hover .card-img-top {
+            transform: scale(1.1);
+        }
+
+        .price-tag {
+            background: linear-gradient(45deg, #FF6B6B, #4ECDC4);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-weight: bold;
+            z-index: 1;
+        }
+
+        .btn-custom {
+            background: linear-gradient(45deg, #FF6B6B, #4ECDC4);
+            border: none;
+            border-radius: 25px;
+            padding: 10px 30px;
+            color: white;
+            font-weight: bold;
+            transition: transform 0.3s;
+        }
+
+        .btn-custom:hover {
+            transform: scale(1.05);
+            color: white;
+        }
+
+        .section-title {
+            position: relative;
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(45deg, #FF6B6B, #4ECDC4);
+        }
+
+        .badge-custom {
+            background: linear-gradient(45deg, #4ECDC4, #FF6B6B);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 15px;
+            font-size: 0.9em;
+        }
+
+        .animate-card {
+            opacity: 0;
+            animation: fadeInUp 1s forwards;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+<div layout:fragment="main-content">
+    <!-- Hero Section -->
+    <div class="hero-section animate__animated animate__fadeIn">
+        <div class="container text-center">
+            <h1 class="display-3 mb-4">Discover Amazing Concerts</h1>
+            <p class="lead mb-5">Find and book tickets for the best concerts happening near you!</p>
+            <a href="#concerts" class="btn btn-custom btn-lg animate__animated animate__pulse animate__infinite">
+                <i class="fas fa-music me-2"></i>Explore Concerts
+            </a>
+        </div>
+    </div>
+
+    <!-- Concert Section -->
+    <div class="container" id="concerts">
+        <h2 class="section-title mb-5">Available Concerts</h2>
+        <div class="row">
+            <div class="col-md-4 mb-4 animate-card" th:each="konser : ${daftarKonser}">
+                <div class="card h-100">
+                    <div class="price-tag">
+                        <i class="fas fa-tag me-2"></i>
+                        <span th:text="${'Rp ' + #numbers.formatDecimal(konser.harga, 0, 'COMMA', 0, 'POINT')}">
+                            Harga
+                        </span>
+                    </div>
+                    <img th:src="${konser.posterUrl}" class="card-img-top" alt="Poster Konser">
+                    <div class="card-body">
+                        <h5 class="card-title" th:text="${konser.namaKonser}">Nama Konser</h5>
+                        <div class="mb-3">
+                            <span class="badge badge-custom me-2">
+                                <i class="fas fa-map-marker-alt me-1"></i>
+                                <span th:text="${konser.lokasi}">Lokasi</span>
+                            </span>
+                            <span class="badge badge-custom">
+                                <i class="fas fa-calendar me-1"></i>
+                                <span th:text="${#temporals.format(konser.tanggal, 'dd MMM yyyy')}">Tanggal</span>
+                            </span>
+                        </div>
+                        <p class="card-text">
+                            <i class="fas fa-ticket-alt me-2"></i>
+                            <strong>Available Tickets: </strong>
+                            <span class="text-success" th:text="${konser.kuota + ' tickets'}">Kuota</span>
+                        </p>
+                        <a th:href="@{/user/konser/{id}(id=${konser.id})}" 
+                           class="btn btn-custom w-100">
+                            <i class="fas fa-shopping-cart me-2"></i>Book Now
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- JavaScript -->
+<script>
+    // Add animation to cards when they come into view
+    document.addEventListener('DOMContentLoaded', () => {
+        const cards = document.querySelectorAll('.animate-card');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animation = 'fadeInUp 1s forwards';
+                }
+            });
+        }, {
+            threshold: 0.1
+        });
+        cards.forEach(card => observer.observe(card));
+    });
+</script>
+</body>
+</html>

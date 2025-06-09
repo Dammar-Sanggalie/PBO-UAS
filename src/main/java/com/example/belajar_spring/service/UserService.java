@@ -9,12 +9,15 @@ import java.util.Map;
 
 @Service
 public class UserService {
-    private final Map<String, String> users = new HashMap<>();
+    private final Map<String, User> users = new HashMap<>();
 
     @PostConstruct
     public void init() {
-        // Add default users for testing
-        users.put("Kelompok 3", "mieayam");
+        // Admin default
+        users.put("admin", new User("admin", "admin123", "ADMIN"));
+        
+        // Tambah user default Kelompok 3
+        users.put("Kelompok 3", new User("Kelompok 3", "123", "USER"));
     }
 
     public boolean register(String username, String password) {
@@ -24,17 +27,20 @@ public class UserService {
         }
         
         if (users.containsKey(username)) {
-            return false; // Username already exists
+            return false;
         }
-        users.put(username, password);
+        users.put(username, new User(username, password, "USER")); // User baru selalu role USER
         return true;
     }
 
-    public boolean login(String username, String password) {
+    public User login(String username, String password) {
         if (username == null || password == null) {
-            return false;
+            return null;
         }
-        String storedPassword = users.get(username);
-        return storedPassword != null && storedPassword.equals(password);
+        User user = users.get(username);
+        if (user != null && user.getPassword().equals(password)) {
+            return user;
+        }
+        return null;
     }
 }

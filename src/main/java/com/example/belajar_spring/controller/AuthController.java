@@ -1,6 +1,7 @@
 package com.example.belajar_spring.controller;
 
 import com.example.belajar_spring.service.UserService;
+import com.example.belajar_spring.model.User; // Tambahkan import ini
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,12 +22,20 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public String login(@RequestParam String username, @RequestParam String password, 
+    public String login(@RequestParam String username, @RequestParam String password,
                        HttpServletRequest request, Model model) {
-        if (userService.login(username, password)) {
+        User user = userService.login(username, password);
+        if (user != null) {
             HttpSession session = request.getSession();
             session.setAttribute("loggedInUser", username);
-            return "redirect:/home"; // Ganti dengan URL yang sesuai
+            session.setAttribute("userRole", user.getRole());
+            
+            // Redirect berdasarkan role
+            if ("ADMIN".equals(user.getRole())) {
+                return "redirect:/admin/home"; // ke dashboard admin
+            } else {
+                return "redirect:/user/home"; // ke home user
+            }
         }
         model.addAttribute("error", "Username atau password salah!");
         return "auth/login";

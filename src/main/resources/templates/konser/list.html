@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Daftar Konser</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-4">
+        <h2>Daftar Konser Yang Tersedia</h2>
+        <div class="row">
+            <div class="col-md-4 mb-4" th:each="konser : ${konserList}">
+                <div class="card">
+                    <img th:src="${konser.posterUrl}" class="card-img-top" alt="poster konser">
+                    <div class="card-body">
+                        <h5 class="card-title" th:text="${konser.namaKonser}">Nama Konser</h5>
+                        <p class="card-text">
+                            <span th:text="${konser.lokasi}">Lokasi</span><br>
+                            <span th:text="${#temporals.format(konser.tanggal, 'dd-MM-yyyy')}">Tanggal</span><br>
+                            <span th:text="${'Rp ' + #numbers.formatDecimal(konser.harga, 0, 'COMMA', 0, 'POINT')}">Harga</span>
+                        </p>
+                        <a th:href="@{/user/konser/{id}(id=${konser.id})}" class="btn btn-primary">Detail</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

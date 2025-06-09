@@ -1,33 +1,63 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{fragments/layout}">
-      <head>
+      layout:decorate="~{fragments/layout-admin}">
+<head>
     <title>Tambah Tiket</title>
 </head>
 <body>
-<div layout:fragment="main-content">
-    <h2>Tambah Tiket</h2>
-    <form th:action="@{/tiket/add}" th:object="${tiket}" method="post">
-        <div class="mb-3">
-            <label class="form-label">Nama Pemesan</label>
-            <input type="text" th:field="*{namaPemesan}" class="form-control"/>
+    <div layout:fragment="main-content">
+        <div class="container py-4">
+            <div class="row justify-content-center">
+                <div class="col-md-8">
+                    <div class="card shadow-sm border-0">
+                        <div class="card-body p-4">
+                            <form th:action="@{/tiket/add}" th:object="${tiket}" method="post">
+                                <div class="mb-3">
+                                    <label for="namaPemesan" class="form-label">Nama Pemesan</label>
+                                    <input type="text" th:field="*{namaPemesan}" class="form-control" id="namaPemesan" required/>
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <label for="namaKonser" class="form-label">Nama Konser</label>
+                                    <input type="text" th:field="*{namaKonser}" class="form-control" id="namaKonser" required/>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="jumlah" class="form-label">Jumlah Tiket</label>
+                                    <input type="number" th:field="*{jumlah}" class="form-control" id="jumlah" value="0" required/>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="totalHarga" class="form-label">Total Harga (Rp)</label>
+                                    <input type="number" th:field="*{totalHarga}" class="form-control" id="totalHarga" value="0.0" required/>
+                                </div>
+
+                                <div class="d-flex gap-2 justify-content-end mt-4">
+                                    <a href="/tiket" class="btn btn-link">
+                                        <i class="bi bi-arrow-left me-1"></i>Kembali
+                                    </a>
+                                    <button type="submit" class="btn btn-primary">
+                                        <i class="bi bi-save me-1"></i>Simpan
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="mb-3">
-            <label class="form-label">Nama Konser</label>
-            <input type="text" th:field="*{namaKonser}" class="form-control"/>
-        </div>
-        <div class="mb-3">
-            <label class="form-label">Jumlah</label>
-            <input type="number" th:field="*{jumlah}" class="form-control"/>
-        </div>
-        <div class="mb-3">
-            <label class="form-label">Total Harga</label>
-            <input type="number" th:field="*{totalHarga}" class="form-control"/>
-        </div>
-        <button type="submit" class="btn btn-success">Simpan</button>
-        <a href="/tiket" class="btn btn-secondary">Kembali</a>
-    </form>
-</div>
+    </div>
+    
+    <style>
+        .btn-primary {
+            background: #0d6efd;
+            border: none;
+        }
+        .form-control:focus {
+            border-color: #0d6efd;
+            box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+        }
+    </style>
 </body>
 </html>

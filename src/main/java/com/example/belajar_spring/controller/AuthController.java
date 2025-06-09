@@ -62,4 +62,5 @@ public class AuthController {
         model.addAttribute("error", "Username sudah ada!");
         return "auth/register";
     }
+
 }

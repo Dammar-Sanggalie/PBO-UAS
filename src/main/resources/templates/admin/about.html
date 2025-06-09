@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/layout-admin}">
+<head>
+    <title>About Us - TiketKonser ID</title>
+</head>
+<body>
+    <div layout:fragment="main-content">
+        <div class="container py-5">
+            <h2 class="text-center mb-5">Meet the People Behind TiketKonser ID </h2>
+            
+            <div class="row g-4 justify-content-center">
+                <!-- Team Member 1 -->
+                <div class="col-md-4 col-lg-3">
+                    <div class="card h-100 border-0 shadow-sm">
+                        <img src="https://avatars.githubusercontent.com/u/208029949?v=4" 
+                             class="card-img-top" alt="Faiz Ahmad">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Faiz Ahmad Dien Al-Ghifary</h5>
+                            <p class="card-text text-muted">24111814014</p>
+                            <a href="https://github.com/Paizzy" class="btn btn-outline-dark btn-sm">
+                                <i class="bi bi-github"></i> GitHub
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Team Member 2 -->
+                <div class="col-md-4 col-lg-3">
+                    <div class="card h-100 border-0 shadow-sm">
+                        <img src="https://avatars.githubusercontent.com/u/184480301?s=96&v=4" 
+                             class="card-img-top" alt="Dammar">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Dammar Sanggalie</h5>
+                            <p class="card-text text-muted">24111814051</p>
+                            <a href="https://github.com/Dammar-Sanggalie" class="btn btn-outline-dark btn-sm">
+                                <i class="bi bi-github"></i> GitHub
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Team Member 3 -->
+                <div class="col-md-4 col-lg-3">
+                    <div class="card h-100 border-0 shadow-sm">
+                        <img src="https://avatars.githubusercontent.com/u/208259981?s=96&v=4" 
+                             class="card-img-top" alt="Aurora">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Aurora Ilmannafia</h5>
+                            <p class="card-text text-muted">24111814069</p>
+                            <a href="https://github.com/auroranafia" class="btn btn-outline-dark btn-sm">
+                                <i class="bi bi-github"></i> GitHub
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Team Member 4 -->
+                <div class="col-md-4 col-lg-3">
+                    <div class="card h-100 border-0 shadow-sm">
+                        <img src="https://avatars.githubusercontent.com/u/207813963?s=96&v=4" 
+                             class="card-img-top" alt="Shofie">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Shofie Ardhya Shafina</h5>
+                            <p class="card-text text-muted">24111814070</p>
+                            <a href="https://github.com/Shofie070" class="btn btn-outline-dark btn-sm">
+                                <i class="bi bi-github"></i> GitHub
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Team Member 5 -->
+                <div class="col-md-4 col-lg-3">
+                    <div class="card h-100 border-0 shadow-sm">
+                        <img src="https://avatars.githubusercontent.com/u/207968448?v=4" 
+                             class="card-img-top" alt="Helena">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Helena Kusuma Wardhani</h5>
+                            <p class="card-text text-muted">24111814020</p>
+                            <a href="https://github.com/Nanaelzy" class="btn btn-outline-dark btn-sm">
+                                <i class="bi bi-github"></i> GitHub
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Team Member 6 -->
+                <div class="col-md-4 col-lg-3">
+                    <div class="card h-100 border-0 shadow-sm">
+                        <img src="https://avatars.githubusercontent.com/u/208147443?s=96&v=4" 
+                             class="card-img-top" alt="Abizar">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Muhammad Noor Abizar</h5>
+                            <p class="card-text text-muted">24111814105</p>
+                            <a href="https://github.com/mnabizar" class="btn btn-outline-dark btn-sm">
+                                <i class="bi bi-github"></i> GitHub
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Team Member 7 -->
+                <div class="col-md-4 col-lg-3">
+                    <div class="card h-100 border-0 shadow-sm">
+                        <img src="https://avatars.githubusercontent.com/u/203047515?s=96&v=4" 
+                             class="card-img-top" alt="Dewa">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Dewa Nazwa Marna Putra</h5>
+                            <p class="card-text text-muted">24111814115</p>
+                            <a href="https://github.com/Marzzzz-bot" class="btn btn-outline-dark btn-sm">
+                                <i class="bi bi-github"></i> GitHub
+                            </a>
+                        </div>
+                    </div>
+                </div>
+           
+ <!-- Add AOS JS -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            duration: 800,
+            once: true
+        });
+    </script>
+
+    <style>
+        .about-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2rem 0;
+            margin-top: -1.5rem;
+        }
+
+        .card {
+            transition: all 0.3s ease;
+            border-radius: 15px;
+            overflow: hidden;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+        }
+        
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+        }
+
+        .card-img-top {
+            height: 250px;
+            object-fit: cover;
+            transition: all 0.3s ease;
+        }
+
+        .card:hover .card-img-top {
+            transform: scale(1.1);
+        }
+
+        .card-body {
+            padding: 1.8rem;
+        }
+
+        .card-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #2d3436;
+        }
+
+        .card-text {
+            font-size: 0.9rem;
+            color: #636e72;
+        }
+
+        .btn-outline-dark {
+            border-radius: 25px;
+            padding: 0.5rem 1.5rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border-width: 2px;
+        }
+
+        .btn-outline-dark:hover {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-color: transparent;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .text-muted {
+            color: rgba(255,255,255,0.8) !important;
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 5px;
+        }
+
+        /* Add subtle animation to icons */
+        .bi {
+            transition: transform 0.3s ease;
+        }
+
+        .btn:hover .bi {
+            transform: rotate(360deg);
+        }
+
+        /* Add decorative elements */
+        .about-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 100%;
+            background: url('data:image/svg+xml,<svg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><circle cx="2" cy="2" r="2" fill="rgba(255,255,255,0.1)"/></svg>');
+            opacity: 0.5;
+            pointer-events: none;
+        }
+    </style>
+</body>
+</html>          

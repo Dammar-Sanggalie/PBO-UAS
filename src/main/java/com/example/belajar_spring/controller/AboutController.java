@@ -19,14 +19,14 @@ public class AboutController {
         return "admin/about";
     }
 
-    @GetMapping("/user/about")
+    @GetMapping("/user/about")  // Changed from /user/aboutus
     public String userAbout(Model model, HttpSession session) {
         String userRole = (String) session.getAttribute("userRole");
         if (!"USER".equals(userRole)) {
             return "redirect:/auth/login";
         }
         
-        model.addAttribute("activePage", "about");
-        return "user/about";
+        model.addAttribute("activePage", "about");  // Changed from aboutus
+        return "user/about";  // Changed from user/aboutus
     }
 }
